@@ -12,9 +12,7 @@ ec2 = session.resource('ec2')			# get the running instances
 running_instances = ec2.instances.filter(Filters=[{'Name': 'instance-state-name','Values': ['running']}])
 
 for instance in running_instances:		#for all instances get the instance details
-    name = 'nothing'
     ec2instances[instance.id] = {
-        'Name': name,
         'Type': instance.instance_type,
         'State': instance.state['Name'],
         'Private IP': instance.private_ip_address,
