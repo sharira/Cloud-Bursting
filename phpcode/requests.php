@@ -2026,11 +2026,21 @@ function AJupdateWaitTime() {
 	if($rc < 1) {
 		print "dijit.byId('newResDlg').hide();";
                 print "dojo.removeClass('deployerr', 'hidden');";
-                print "dojo.byId('NewAWS').innerHTML = 'New VM';";
 		#$cmd = implode("     ",array_keys($user));
 		#$cmd = $user['unityid'];
 		#$vals = implode("   ",array_values($user));
-		print "dojo.byId('subcontent').innerHTML = 'New user ';";
+		$py_cmd = 'python /var/www/html/vcl/.ht-inc/launch.py' . ' ' . $user['unityid'];
+		#$output = passthru("python /root/try.py");
+		#$command = escapeshellcmd('python /root/try.py');
+		#$output = shell_exec($command);
+		#echo $output;
+#		$output= exec('python /var/www/html/vcl-2.5/.ht-inc/try.py admin');
+		$output = exec($py_cmd);
+		#$output = passthru("python /var/www/html/vcl-2.5/.ht-inc/try.py" . $user['unityid']);
+
+		#sleep(1);
+                print "dojo.byId('NewAWS').innerHTML = 'New VM';";
+		print "dojo.byId('subcontent').innerHTML = 'Abhash Jain';";
                 print "showSuggestedTimes();";
                 print "dojo.byId('deployerr').innerHTML = '";
 		
