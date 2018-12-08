@@ -12,6 +12,7 @@ import string
 import random
 from subprocess import call
 import json
+import math
 
 def id_generator(size=12, chars=string.ascii_letters):
 	return ''.join(random.choice(chars) for _ in range(size))
@@ -19,7 +20,9 @@ def id_generator(size=12, chars=string.ascii_letters):
 
 #takes one argument from console
 requested_user = sys.argv[1]
-print "launch called" + requested_user
+duration = int(math.ceil((float(sys.argv[2])/60)))
+
+#print "launch called" + requested_user
 
 with open('aws_config.json') as f:
 	 data = json.load(f)
@@ -63,7 +66,7 @@ os.system(ssh_cmd)
 print instance_ID
 start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 #end time will after 1 hour
-end_time = datetime.now() + timedelta(hours=1);
+end_time = datetime.now() + timedelta(hours=duration);
 sql = "INSERT INTO aws_reservation (instance_id,username,start_time,end_time,daterequested,instance_username,password,dns_ip) VALUES (%s, %s,%s,%s,%s,%s,%s,%s)"
 val = (instance_ID,requested_user,start_time,end_time,start_time,instance_username,instance_password,instance_dns)
 mycursor.execute(sql, val)
