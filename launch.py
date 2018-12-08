@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 import string
 import random
 from subprocess import call
+import json
 
 def id_generator(size=12, chars=string.ascii_letters):
 	return ''.join(random.choice(chars) for _ in range(size))
@@ -19,8 +20,12 @@ def id_generator(size=12, chars=string.ascii_letters):
 #takes one argument from console
 requested_user = sys.argv[1]
 print "launch called" + requested_user
-ec2 = boto3.resource('ec2', region_name='us-east-1',aws_access_key_id='ASIAZIZJMWQESQVC5HN6',aws_secret_access_key='TTEwiBNqW8C0HXEtEfBN9BvzO5ii5110/zilJ5pW',
-	aws_session_token='FQoGZXIvYXdzED4aDB4JjJnozn9szh9WYyLfAoKKOKfYwKSI8KAkM1w8Y1QZXVG2dXIchtW6AE6aA+Ce7cCik0NVJ0qyBKSa2KYmTFlvxJlyzK2JrATUkwd0e04Z974N1UQDAuUNHNf3nLtqVanzDiuUFmnPLZVKAn6matOOCxpJ8YE6tC+OHSRqoMGpnR4tDIYGSZUpI/qqdiTNTFBZkPJAeNHFrec7rElXeCToEmI7I/DMhC31v35chz6RqRZW+0Ec9bYZ7IRKH8c/kYz1aT8QXzCsaBOYKcllaJaOKpLOq2MUq+W2UsP04BDm8lsSKKT4t5J2CHFvyGRfTDaX2KGVoOrUxwPzyXX2CJQ3nbo/Y+XoK+EzctI6pWE641ZsJ6NSRkFZkjZBy3CksdG6YqOUGYZO1I0JAsHY1Zeb1flohG5S/nr5X9YhJN1z2qtkyEU9lT2bvaROwT/7G68hLNBs2QeO1fn7n/kE9qTJw8FMbeGbrPD//ikERiijtfjfBQ==')
+
+with open('aws_config.json') as f:
+	 data = json.load(f)
+
+ec2 = boto3.resource('ec2', region_name=str(data['region_name']),aws_access_key_id=str(data['aws_access_key_id']),aws_secret_access_key=str(data['aws_secret_access_key']),
+	aws_session_token=str(data['aws_session_token']))
 
 # create a new EC2 instance
 instances = ec2.create_instances(
@@ -43,7 +48,7 @@ ins.wait_until_running()
 ins.load()
 instance_dns = ins.public_dns_name
 
-time.sleep(4)
+time.sleep(5)
 #aws_cmd = "aws ec2 describe-instances --instance-ids " + instance_ID + " --query 'Reservations[].Instances[].PublicDnsName'"
 #output = os.popen(aws_cmd).read()
 #matchObj = re.match( r'\[\s+"(\S+)"',output,re.M|re.I)
