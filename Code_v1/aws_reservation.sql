@@ -1,0 +1,1 @@
+create table aws_reservation(instance_id VARCHAR(50) NOT NULL,username varchar(50) NOT NULL,start_time datetime NOT NULL, end_time datetime NOT NULL, daterequested datetime NOT NULL default '0000-00-00 00:00:00',instance_username varchar(50) NOT NULL,password varchar(50) NOT NULL,dns_ip varchar(100),CONSTRAINT i_pk PRIMARY KEY(`instance_id`));
