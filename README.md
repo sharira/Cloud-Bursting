@@ -34,11 +34,11 @@ __NOTE:__ Report is also upload along with this code __cloud_burst_report.pdf__.
 
 7. Run the DB command on your DB prompt. SQL create command is there in  aws_reservation.sql file.
 
-    `$ mysql
+    `$ mysql`
     
-    $ use vcl;
+    `$ use vcl;`
     
-    $ create table aws_reservation(instance_id VARCHAR(50) NOT NULL,username varchar(50) NOT NULL,start_time datetime NOT NULL, end_time datetime NOT NULL, daterequested datetime NOT NULL default '0000-00-00 00:00:00',instance_username varchar(50) NOT NULL,password varchar(50) NOT NULL,dns_ip varchar(100),CONSTRAINT i_pk PRIMARY KEY(`instance_id`));`
+    `$ create table aws_reservation(instance_id VARCHAR(50) NOT NULL,username varchar(50) NOT NULL,start_time datetime NOT NULL, end_time datetime NOT NULL, daterequested datetime NOT NULL default '0000-00-00 00:00:00',instance_username varchar(50) NOT NULL,password varchar(50) NOT NULL,dns_ip varchar(100),CONSTRAINT i_pk PRIMARY KEY(`instance_id`));`
 
 8. Download the AWS key file which you created in your aws account and place it in your /var/www/cgi-bin/ with file name as __aws-ec2-keypair.pem__
 
